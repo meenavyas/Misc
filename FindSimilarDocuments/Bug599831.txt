@@ -1,0 +1,43 @@
+Bug 599831
+scalability limited on 4-socket Westmere by hot lock for RSA blinding params list
+RESOLVED FIXED in 3.12.10	
+?
+Get help with this page
+Status
+Product:	? NSS
+Component:	? Libraries
+Importance:	P1	normal
+Status:	RESOLVED FIXED	
+Reported:	7 years ago
+Modified:	7 years ago
+People	(Reporter: Aleksey, Assigned: Aleksey)
+Tracking	({perf})
+Version:	trunk
+Target:	3.12.10
+Platform:	x86_64	All	
+Keywords:	perf	
+Firefox Tracking Flags	(Not tracked)
+Details	(Whiteboard: 4_3.12.10)
+Whiteboard:	4_3.12.10
+Votes:	0 votes	
+Attachments	(4 attachments, 10 obsolete attachments)
+crypto.rsa.pdf - experiments
+7 years ago Aleksey
+219.38 KB, application/pdf
+Details
+crypto.rsa1.pdf - additional measurements
+7 years ago Aleksey
+227.25 KB, application/pdf
+Details
+crypto.rsa2.pdf - measurements
+7 years ago Aleksey
+192.50 KB, application/pdf
+Details
+Fixed all rrelyea comments + signverify instability fix
+7 years ago Aleksey
+14.46 KB, patch
+Nelson Bolyard (seldom reads bugmail) : review+
+Robert Relyea : superreview+
+Details | Diff | Splinter Review
+Show Obsolete Attachments
+Bottom ? 

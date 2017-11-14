@@ -1,0 +1,313 @@
+Thunderbird is reaching maximum number of open files limit and getting "Unable to Load Address Book File" [Mac]
+UNCONFIRMED Assigned to aceman	
+?
+Get help with this page
+Status
+Product:	? Thunderbird
+Component:	? General
+Status:	UNCONFIRMED	
+Reported:	5 years ago
+Modified:	a month ago
+People	(Reporter: Mitar, Assigned: aceman)
+Tracking
+Version:	15 Branch
+Target:	---
+Platform:	x86	Mac OS X		
+Duplicates:	1154230
+Bug Flags:	
+amankyan77
+sec-review	?
+Firefox Tracking Flags	(Not tracked)
+Details	(Whiteboard: dupme)
+Whiteboard:	dupme
+Votes:	0 votes	
+See Also:	
+855751
+https://support.mozilla.org/en-US/que...
+717574
+1256985
+Attachments	(1 attachment)
+List of opened 533 file descriptiors by Thunderbird at startup.
+2 years ago Mitar
+76.50 KB, text/plain
+Details
+Bottom ?  Tags ?   View ?
+
+Mitar (Reporter)	-
+Description • 5 years ago
+User Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:15.0) Gecko/20100101 Firefox/15.0.1
+Build ID: 20120905151427
+
+Steps to reproduce:
+
+After years of using Thunderbird and adding new and new folders (199 .msf files in profile) Thunderbird started behaving erratically.
+
+
+Actual results:
+
+I have problems opening folders (not loading them, having to resync/repair them over IMAP). Thunderbird is saying that address book file is corrupted when I start it. Even after restoring to known working backup version same was happening.
+
+
+Expected results:
+
+Thunderbird should work normally even with large number of folders.
+
+Mitar (Reporter)	-
+Comment 1 • 5 years ago
+I have discovered that it is related to file limits in some way. My ulimit -n says "256", launchctl limit returns the same number.
+
+If I run /Applications/Thunderbird.app/Contents/MacOS/thunderbird terminal, everything works correctly. If I run Thunderbird from dock, it does not.
+
+I replaced /Applications/Thunderbird.app/Contents/MacOS/thunderbird with:
+
+#!/bin/bash
+ulimit -n 2048
+exec /Applications/Thunderbird.app/Contents/MacOS/thunderbird-orig
+
+And now also it works from Dock without problems for me. (I renamed original thunderbird binary to thunderbird-orig.)
+
+Ludovic Hirlimann [:Usul]	-
+Updated • 5 years ago
+Whiteboard: dupme
+
+Wayne Mery (:wsmwk, NI for questions)	-
+Comment 2 • 2 years ago
+(In reply to Mitar from comment #0)
+>...
+> After years of using Thunderbird and adding new and new folders (199 .msf
+> files in profile) Thunderbird started behaving erratically.
+
+Your reported this at version 15.
+Does that mean you did not have trouble when using version 14?
+Flags: needinfo?(mmitar)
+Summary: Thunderbird is reaching maximum number of open files limit ? Thunderbird is reaching maximum number of open files limit [Mac]
+
+Wayne Mery (:wsmwk, NI for questions)	-
+Updated • 2 years ago
+Duplicate of this bug: 1154230
+
+Wayne Mery (:wsmwk, NI for questions)	-
+Comment 4 • 2 years ago
+(In reply to Wayne Mery (:wsmwk, use Needinfo for questions) from comment #2)
+> (In reply to Mitar from comment #0)
+> >...
+> > After years of using Thunderbird and adding new and new folders (199 .msf
+> > files in profile) Thunderbird started behaving erratically.
+> 
+> Your reported this at version 15.
+> Does that mean you did not have trouble when using version 14?
+
+and also please test beta 38 from http://www.mozilla.org/en-US/thunderbird/channel/ with ulimit left to default.  Is it better, worse?
+
+Mitar (Reporter)	-
+Comment 5 • 2 years ago
+OK. This was now a scary experience. After I run the beta, I saw in the Activity Manager one bunch of "Deleted folder" messages. Luckily, it seems it deleted it only locally, keeping the .msf file, but deleted the other file. They are still on the server. Running "Download/Sync Now" is restoring them now.
+
+...
+
+No, in fact "Download/Sync Now" does not help. It seems it is deleting files randomly, including .msf files, just to keep their count under 256. Doing "find . | wc -l" returns 246 files inside ImapMail folder. There should be around 300 files there. Also, when I start the program, I am still getting "Unable to Load Address Book File" error which is a reason how I discovered this bug.
+
+Running my fixed version of the program immediately bumped the number of files in ImapMail directory to 335.
+Flags: needinfo?(mmitar)
+
+Mitar (Reporter)	-
+Comment 6 • 2 years ago
+So I would say that with beta 38 it is the same. So Thunderbird having issues keeping up with the number of folders. And me having to constantly resync the ones which it loses track of.
+
+> Your reported this at version 15.
+> Does that mean you did not have trouble when using version 14?
+
+I am not sure about this. I think it started happening when I added more folders. So it is not a regression. Just my use increased through time.
+
+Wayne Mery (:wsmwk, NI for questions)	-
+Comment 7 • 2 years ago
+(In reply to Mitar from comment #5)
+> OK. This was now a scary experience. After I run the beta, I saw in the
+> Activity Manager one bunch of "Deleted folder" messages. Luckily, it seems
+> it deleted it only locally, keeping the .msf file, but deleted the other
+> file. They are still on the server. Running "Download/Sync Now" is restoring
+> them now.
+> 
+> ...
+> 
+> No, in fact "Download/Sync Now" does not help. It seems it is deleting files
+> randomly, including .msf files, just to keep their count under 256. 
+
+so syncing to fix was mentioned as "temporary fix" in comment 0. But that not helping is "new" behavior in 38, correct?
+
+
+> Doing
+> "find . | wc -l" returns 246 files inside ImapMail folder. There should be
+> around 300 files there. Also, when I start the program, I am still getting
+> "Unable to Load Address Book File" error which is a reason how I discovered
+> this bug.
+> 
+> Running my fixed version of the program immediately bumped the number of
+> files in ImapMail directory to 335.
+
+You mean by bumping ulimit?
+
+
+Please attach list of open thunderbird files, where <pid> is thunderbird's process ID
+lsof -p <pid>
+Flags: needinfo?(mmitar)
+Summary: Thunderbird is reaching maximum number of open files limit [Mac] ? Thunderbird is reaching maximum number of open files limit and getting "Unable to Load Address Book File" [Mac]
+
+:aceman (Assignee)	-
+Comment 8 • 2 years ago
+Why do you have so low ulimit in your system? I think normally the number of open files is allowed in thousands (at least on other systems).
+E.g. linux default seems to be 1024 (http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=0ac1ee0bfec2a4ad118f907ce586d0dfd8db7641)
+
+But I wonder why TB actually opens so many files. I though the msf files are only opened by TB if the mail folder is accessed in TB (or mail downloaded to it, etc.).
+
+Mitar, please paste the list of open files so we see those really are the .msf files for folders.
+
+Wayne, rkent, we should watch this kind of problem as it could get worse thanks to bug 1135310 after which we potentially keep MORE files open (to actually have working DB caching). Even when disconnecting the DB file from the folder, the file handles are not released (bug unfiled yet) immediately. So if user manages to visit too many folders within the minute (or more until file handles are actually closed), he may hit the OS limit of open files. We could avoid this by implementing some system for refusing opening of more folder databases if we hit some pref based limit. But that could have consequences (e.g. TB thinking folder does not exist and starting some recovery action), better would be to close some older DB and open the new one.
+
+Wayne Mery (:wsmwk, NI for questions)	-
+Comment 9 • 2 years ago
+(In reply to :aceman from comment #8)
+> Why do you have so low ulimit in your system? I think normally the number of
+> open files is allowed in thousands (at least on other systems).
+> E.g. linux default seems to be 1024
+> (http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/
+> ?id=0ac1ee0bfec2a4ad118f907ce586d0dfd8db7641)
+
+The Mac default per process ulimit is 256.
+
+
+> But I wonder why TB actually opens so many files. I though the msf files are
+> only opened by TB if the mail folder is accessed in TB (or mail downloaded
+> to it, etc.).
+
+user is probably seeing bug 495911, which is the oldest description of this issue.  AFAICT does not exist in version 2.x.  see  bug 495911 comment 108 and https://bug495911.bugzilla.mozilla.org/attachment.cgi?id=752939 which is an example list of open files. See my most recent comments in the bug.
+
+
+> Wayne, rkent, we should watch this kind of problem as it could get worse
+> thanks to bug 1135310 after which we potentially keep MORE files open (to
+> actually have working DB caching). Even when disconnecting the DB file from
+> the folder, the file handles are not released (bug unfiled yet) immediately.
+> So if user manages to visit too many folders within the minute (or more
+> until file handles are actually closed), he may hit the OS limit of open
+> files. We could avoid this by implementing some system for refusing opening
+> of more folder databases if we hit some pref based limit. But that could
+> have consequences (e.g. TB thinking folder does not exist and starting some
+> recovery action), better would be to close some older DB and open the new
+> one.
+
+To have a long term fix we likely need a more general solution than adjusting how many files TB open. see bug 495911
+
+:aceman (Assignee)	-
+Comment 10 • 2 years ago
+Yeah, if the problem are font files, we can't help with that one. But limiting number of open folders could be useful nevertheless. E.g. mail.db.max_open does not really hard limit the number of open folders at peaks. It only closes them down after the 1 minute timer and then after undefined event.
+
+Mitar (Reporter)	-
+Comment 11 • 2 years ago
+> so syncing to fix was mentioned as "temporary fix" in comment 0. But that not helping is "new" behavior in 38, correct?
+
+Syncing does not really help. It makes some folders appear, but then some others disappear. It helps you get access to a folder, but then you loose some others.
+
+> Please attach list of open thunderbird files, where <pid> is thunderbird's process ID
+lsof -p <pid>
+
+Attaching. I redacted it a bit.
+Flags: needinfo?(mmitar)
+
+Mitar (Reporter)	-
+Comment 12 • 2 years ago
+Created attachment 8594411 [details]
+List of opened 533 file descriptiors by Thunderbird at startup.
+
+Mitar (Reporter)	-
+Comment 13 • 2 years ago
+533 are opened. It is at startup. With my ulimit increase this is possible. Later on (like 10 minutes after) number of file descriptors fall down. At this moment there are 234 files open.
+
+Wayne Mery (:wsmwk, NI for questions)	-
+Comment 14 • 2 years ago
+(In reply to Mitar from comment #12)
+> Created attachment 8594411 [details]
+> List of opened 533 file descriptiors by Thunderbird at startup.
+
+interesting example.
+389 msf
+40 fonts (usually I've seen way more)
+30 thunderbird profile
+13 applications folders, including thunderbird 
+63 other
+
+:aceman (Assignee)	-
+Comment 15 • 2 years ago
+(In reply to Mitar from comment #11)
+> Attaching. I redacted it a bit.
+
+Is the redaction causing that all the msf files have the same name? :)
+
+Mitar (Reporter)	-
+Comment 16 • 2 years ago
+Yes, they do not have the same name otherwise.
+
+:aceman (Assignee)	-
+Comment 17 • 2 years ago
+OK, so I'll look at this if we can hard-limit the number of open databases.
+Assignee: nobody ? acelists
+
+Kent James (:rkent)	-
+Comment 18 • 2 years ago
+Does the user have by any chance a search folder that searches over large numbers of folders? Search folders have to open all databases that they search.
+
+Mitar (Reporter)	-
+Comment 19 • 2 years ago
+Hm, would not hard-limit slow down the startup?
+
+No, I do not have search folders (at least if there are not some which are hidden/internal). But I do Spotlight indexing integration enabled.
+
+Mitar (Reporter)	-
+Comment 20 • 2 years ago
+I do not have anything special to cleanup files or something installed on my Mac. I have one IMAP account, one local account, and one RSS feeds account. 393 folders all together (this is also the number of .msf files).
+
+Also running Thunderbird in the safe mode (no extensions) still has the same Address Book issue and lsof | wc -l returns at one sample more than 373 filehandles. And this is without my ulimit changing thing. So I am not sure how is this even possible? If the ulimit is 256, how can it still open more files? Anyway, things do not work. So it is not an extension.
+
+:aceman (Assignee)	-
+Comment 21 • 2 years ago
+(In reply to Mitar from comment #19)
+> Hm, would not hard-limit slow down the startup?
+Maybe, but at least it would not produce errors when opening folders or ABs. Which may cause dataloss.
+
+
+(In reply to Mitar from comment #20)
+> Also running Thunderbird in the safe mode (no extensions) still has the same
+> Address Book issue and lsof | wc -l returns at one sample more than 373
+> filehandles. And this is without my ulimit changing thing. So I am not sure
+> how is this even possible? If the ulimit is 256, how can it still open more
+> files? Anyway, things do not work. So it is not an extension.
+
+Maybe some of those files are not counted against the limit. Some system files or something.
+
+amankyan77	-
+Updated • 2 years ago
+Flags: sec-review?
+
+:aceman (Assignee)	-
+Updated • 2 years ago
+See Also: ? bug 855751
+
+Wayne Mery (:wsmwk, NI for questions)	-
+Updated • 2 years ago
+See Also: ? https://support.mozilla.org/en-US/questions/1089847
+
+jwq	-
+Comment 22 • 2 years ago
+Bug 717574 (confirmed NEW) appears to be the same issue.
+
+To work around this bug, I launch Thunderbird from a shell function 'ulimit -S -n 512; /Applications/Thunderbird.app/Contents/MacOS/thunderbird-bin'.
+See Also: ? bug 717574
+
+Jim Moe	-
+Comment 23 • 2 years ago
+I implemented the 'ulimit -S -n 512; /Applications/Thunderbird.app/Contents/MacOS/thunderbird-bin' suggestion. Once the user was trained to using a different icon to start TB (not re-open), the display settings have been stable.
+
+If only a developer could do the same...
+
+Wayne Mery (:wsmwk, NI for questions)	-
+Updated • a month ago
+See Also: ? bug 1256985

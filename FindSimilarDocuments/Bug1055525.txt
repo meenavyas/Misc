@@ -1,0 +1,67 @@
+Bug 1055525
+Add Padding to Above and Below Header Text in FTE Setup Flow
+RESOLVED DUPLICATE of bug 1065384	
+?
+Get help with this page
+Status
+Product:	? Firefox OS
+Component:	? Gaia::First Time Experience
+Status:	RESOLVED DUPLICATE of bug 1065384	
+Reported:	3 years ago
+Modified:	3 years ago
+People	(Reporter: Sabrina Smelko, Assigned: jee1mr)
+Tracking	(Blocks: 2 bugs)
+Firefox Tracking Flags	(Not tracked)
+Details
+Attachments	(1 attachment)
+ Add-Header-Padding-FTE.jpg
+3 years ago Sabrina Smelko
+236.55 KB, image/jpeg
+Details
+Bottom ?  Tags ?   View ?
+
+Sabrina Smelko (Reporter)	-
+Description • 3 years ago
+Created attachment 8475145 [details]
+Add-Header-Padding-FTE.jpg
+
+Currently, the FTE setup flow screens are very full and feel like a daunting wall of text. This is because all of the content is close together. By simply adding some breathing room and separation between content, the UX can improve drastically and the actions required will become more obvious.
+
+We can do this by simply adding padding above and below header text. So there's more space between status bar and header and more space between body content and header. Each screen would be much easier to read and understand, and we wouldn't lose any copy or row of content on most screens.
+
+***
+
+If we can't move the header down, can we at least push the body content down by triple so there's more separation between the title and body content?
+
+Sabrina Smelko (Reporter)	-
+Updated • 3 years ago
+Blocks: 1055526
+
+Sabrina Smelko (Reporter)	-
+Updated • 3 years ago
+No longer blocks: 1055526
+
+Sabrina Smelko (Reporter)	-
+Updated • 3 years ago
+Blocks: 1055526
+
+Sabrina Smelko (Reporter)	-
+Updated • 3 years ago
+Blocks: 1055550
+
+Jeevan M R (:jee1mr) (Assignee)	-
+Comment 1 • 3 years ago
+I'm interested to work on this bug. Please assign it to me.
+
+Michael Henretty [:mikehenrty][:mhenretty]	-
+Comment 2 • 3 years ago
+Have at it!
+Assignee: nobody ? 14.jeevan
+
+Sam Foster [:sfoster]	-
+Comment 3 • 3 years ago
+Sorry this got fixed from under you the dupe turned out to be a blocker with some locales. 14.jeevan@gmail.com, if you are still interested in working on some CSS bugs maybe this list is of use? http://www.joshmatthews.net/bugsahoy/?b2g=1&html=1 - do let me know if I can help get you started on anything there.
+Status: NEW ? RESOLVED
+Last Resolved: 3 years ago
+Resolution: --- ? DUPLICATE
+Duplicate of bug: 1065384
