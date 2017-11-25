@@ -1,5 +1,7 @@
 #####################################
-# This file is modified version of project @ https://github.com/aymericdamien/TensorFlow-Examples/"
+# This file is modified version of project @ https://github.com/aymericdamien/TensorFlow-Examples/blob/master/examples/3_NeuralNetworks/convolutional_network_raw.py
+# Check its license details before using.
+#
 # This example is using MNIST handwritten digits.
 # The dataset contains 60,000 examples for training and 10,000 examples 
 # for testing. The digits have been size-normalized and centered in a 
