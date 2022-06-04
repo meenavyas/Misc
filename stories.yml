@@ -1,0 +1,19 @@
+version: "3.1"
+
+stories:
+
+- story: client server
+  steps:
+  - intent: client_server
+  - action: utter_client_server
+
+- story: data scientist
+  steps:
+  - intent: data_scientist
+  - action: utter_data_scientist
+
+- story: server database
+  steps:
+  - intent: server_database
+  - action: utter_server_database
+

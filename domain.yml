@@ -1,0 +1,15 @@
+version: '3.0'
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- client_server
+- data_scientist
+- server_database
+responses:
+  utter_client_server:
+  - text: Found intent client_server
+  utter_data_scientist:
+  - text: Found intent data_scientist
+  utter_server_database:
+  - text: Found intent server_database

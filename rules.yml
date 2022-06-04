@@ -1,0 +1,9 @@
+version: "3.1"
+
+rules:
+
+- rule: Say data_scientist
+  steps:
+  - intent: data_scientist
+  - action: utter_data_scientist
+

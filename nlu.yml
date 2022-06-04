@@ -1,0 +1,14 @@
+version: "3.1"
+
+nlu:
+- intent: client_server
+  examples: |
+    - What are the differences between clients and servers?
+
+- intent: server_database
+  examples: |
+    - What is the difference between a server and a database?
+
+- intent: data_scientist
+  examples: |
+    - How can I become a data scientist?
