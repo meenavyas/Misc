@@ -1,4 +1,4 @@
-This repository contains various interesting projects like Cat face detection, cat face recognition, code generation, Building chatbot, finding similar documents, image segmentation, Mnist, UCI credit card,  code generation
+This repository contains various interesting projects like Cat face detection, cat face recognition, code generation, Building chatbot, finding similar documents, object detection, image segmentation, Mnist, UCI credit card,  code generation
 <p float="left">
   <img src="/images/face-recognition.webp" width="100" alt="Cat face recognition"/>
   <img src="/images/catfacedetecion.webp" width="100" alt="Cat face detection"/>
