@@ -3,16 +3,14 @@ This repository contains various interesting projects like Cat face detection, c
   <img src="/images/face-recognition.webp" width="100" alt="Cat face recognition"/>
   <img src="/images/catfacedetecion.webp" width="100" alt="Cat face detection"/>
   <img src="/images/code-generation.webp" width="100" alt="code generation"/>
-
-</p>
-<p float="left">
-  <img src="/MNIST/Mnist.png" width="100" />
-  <img src="/ImageSegmentation/imageSegmentation.png" width="100" />
+    <img src="/ImageSegmentation/imageSegmentation.png" width="100" />
 </p>
 <p float="left">
   <img src="/Chatbot/chatbot.png" width="100" />
   <img src="/FindSimilarDocuments/FindingSimilarDocuments.png" width="100" /> 
   <img src="/UCICreditCard/uci-credit-card.png" width="100" />
+    <img src="/MNIST/Mnist.png" width="100" />
+
 </p>
 
 
