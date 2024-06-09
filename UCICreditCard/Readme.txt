@@ -1,5 +1,5 @@
-UCI Credit Card Readme
-~~~~~~~~~~~~~~~~~~~~~~
+
+![UCI credit card](https://github.com/meenavyas/Misc/blob/master/UCICreditCard/uci-credit-card.png)
 
 Refer my blog [https://meenavyas.wordpress.com/2017/08/21/analysing-credit-card-default-datasets-using-apache-spark-and-scala/](https://meenavyas.wordpress.com/2017/08/21/analysing-credit-card-default-datasets-using-apache-spark-and-scala/)
 
